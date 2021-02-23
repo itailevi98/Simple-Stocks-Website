@@ -1,17 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
 const symbol = urlParams.get('symbol');
-console.log(symbol);
 document.querySelectorAll(".loader")[0].style.display = "block";
 fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`)
     .then(response => {
         return response.json()
     })
     .then(data => {
-        console.log(data);
         document.querySelectorAll(".loader")[0].style.display = "none";
         const company_link = document.createElement("a");
         company_link.href = data.profile.website;
-        company_link.innerText = data.profile.companyName
+        company_link.innerText = data.profile.companyName;
         const company_name = document.getElementById("company-name");
         company_name.appendChild(company_link);
         document.getElementById("company-image").src = data.profile.image;
@@ -20,12 +18,18 @@ fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/ap
         stock_price.innerText = `Stock Price: ${data.profile.price} `;
         const prices_change = document.createElement('span');
         prices_change.innerText = data.profile.changesPercentage;
-        if(data.profile.changesPercentage.includes('+')){
-            prices_change.style.color = "rgb(27, 206, 27)";
+        try{
+            if(data.profile.changesPercentage.includes('+')){
+                prices_change.style.color = "rgb(27, 206, 27)";
+            }
+            else if(data.profile.changesPercentage.includes('-')){
+                prices_change.style.color = "red";
+            }
         }
-        else if(data.profile.changesPercentage.includes('-')){
-            prices_change.style.color = "red";
+        catch(error){
+            console.log(error);
         }
+        
         document.getElementById("stock-price").appendChild(stock_price);
         document.getElementById("stock-price").appendChild(prices_change);
         getChart(symbol);
@@ -47,13 +51,14 @@ async function getChart(symbol){
     let datesArr = [];
     let pointsArr = [];
     let increment = Math.ceil(dates.length / 20);
-    console.log(dates.length);
-    console.log(increment);
     for(let i = 0; i < 20; i++){
-        let dTempArr = dates.splice(0, increment)
+        let dTempArr = dates.splice(0, increment);
         datesArr.push(dTempArr);
         let pTempArr = points.splice(0, increment);
         pointsArr.push(pTempArr);
+        if(dates.length < increment) {
+            break;
+        }
     }
     dates = [];
     points = [];
@@ -65,8 +70,6 @@ async function getChart(symbol){
         let item = array[array.length - 1];
         points.push(item);
     }
-    console.log(dates);
-    console.log(points);
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'line',
@@ -88,5 +91,4 @@ async function getChart(symbol){
         }
     });
     document.querySelectorAll(".loader")[1].style.display = "none";
-    console.log(data);
 }

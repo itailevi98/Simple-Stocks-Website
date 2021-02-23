@@ -7,6 +7,10 @@ a {
     color: rgb(0, 140, 255);
 }
 
+h1 {
+    text-align: center;
+}
+
 .search-container {
     display: flex;
     padding-left: 20px;
@@ -28,6 +32,29 @@ a {
 .list-item {
     padding: 10px;
     border-bottom: 1px solid rgba(180, 178, 178, 0.5);
+    display: flex;
+    align-items: center;
+}
+
+.company-image {
+    height: 30px;
+    margin-right: 15px;
+}
+
+.negative-price {
+    color: red !important;
+}
+
+.positive-price {
+    color: rgb(27, 206, 27) !important;
+}
+
+.list-item-price {
+    font-size: 11px;
+    color: lightslategrey;
+}
+.result-link {
+    margin-right: 15px;
 }
 
 .list-item:last-child {
@@ -42,8 +69,9 @@ a {
 
 #search-button {
     background: white;
-    color: rgb(104, 103, 109);
+    color: white;
     border: 1px solid rgba(104, 103, 109, 0.849);
+    background-color: rgb(35, 128, 214);
 }
 
 #loader {
@@ -66,5 +94,7 @@ a {
     100% {
         transform: rotate(360deg);
     }
-}
+} 
+
+
 
