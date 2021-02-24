@@ -7,31 +7,31 @@ fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/ap
     })
     .then(data => {
         document.querySelectorAll(".loader")[0].style.display = "none";
-        const company_link = document.createElement("a");
-        company_link.href = data.profile.website;
-        company_link.innerText = data.profile.companyName;
-        const company_name = document.getElementById("company-name");
-        company_name.appendChild(company_link);
+        const companyLink = document.createElement("a");
+        companyLink.href = data.profile.website;
+        companyLink.innerText = data.profile.companyName;
+        const companyName = document.getElementById("company-name");
+        companyName.appendChild(companyLink);
         document.getElementById("company-image").src = data.profile.image;
         document.getElementById("company-description").innerText = data.profile.description;
-        const stock_price = document.createElement('span');
-        stock_price.innerText = `Stock Price: ${data.profile.price} `;
-        const prices_change = document.createElement('span');
-        prices_change.innerText = data.profile.changesPercentage;
+        const stockPrice = document.createElement('span');
+        stockPrice.innerText = `Stock Price: ${data.profile.price} `;
+        const pricesChange = document.createElement('span');
+        pricesChange.innerText = data.profile.changesPercentage;
         try{
             if(data.profile.changesPercentage.includes('+')){
-                prices_change.style.color = "rgb(27, 206, 27)";
+                pricesChange.style.color = "rgb(27, 206, 27)";
             }
             else if(data.profile.changesPercentage.includes('-')){
-                prices_change.style.color = "red";
+                pricesChange.style.color = "red";
             }
         }
         catch(error){
             console.log(error);
         }
         
-        document.getElementById("stock-price").appendChild(stock_price);
-        document.getElementById("stock-price").appendChild(prices_change);
+        document.getElementById("stock-price").appendChild(stockPrice);
+        document.getElementById("stock-price").appendChild(pricesChange);
         getChart(symbol);
     });
 

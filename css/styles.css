@@ -96,5 +96,24 @@ h1 {
     }
 } 
 
+#marquee {
+    height: 12px;
+}
+
+#marquee p {
+    animation: marquee 100s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+    
+    100% {
+        transform: translateX(-200%);
+    }
+}
+
 
 
