@@ -1,25 +1,3 @@
-window.onload = fetchMarquee();
-
-async function fetchMarquee() {
-    const response = await fetch("https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/stock/list");
-    let data = await response.json();
-    data = data.slice(0, 50);
-    const marqueeText = document.createElement("p");
-    data.map(element => {
-        const symbol = document.createElement("span");
-        symbol.innerText = `${element.symbol} `;
-        symbol.style.color = "rgba(104, 103, 109, 0.849)";
-        const price = document.createElement('span');
-        price.innerText = `$${element.price}`;
-        price.style.color = "rgb(27, 206, 27)";
-        price.style.marginRight = "8px";
-        marqueeText.appendChild(symbol);
-        marqueeText.appendChild(price);
-        marqueeText.style.fontSize = "12px";
-    });
-    document.getElementById("marquee").appendChild(marqueeText);
-}
-
 document.querySelector('#search-button').addEventListener("click", async event => {
     event.preventDefault();
     const searchValue = document.querySelector('#search-bar').value;
