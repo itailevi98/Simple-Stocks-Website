@@ -11,24 +11,24 @@
     <link rel="icon" type="image/jpg" href="./images/favicon.jpg"/>
 </head>
 <body>
-    <div class="wrapper">
+    <div id="wrapper">
         <div id="marquee"></div>
         <h1>Search Nasdaq Stocks</h1>
-        <form class="search-container">
-            <input type="search" id="search-bar">
-            <button type="submit" id="search-button">Search</button>
-        </form>
-        <div class="search-results-container">
-            <div id="loader"></div>
-            <ul id="results-list"></ul>
-        </div>
+        <div id="search-container"></div>
+        <div id="search-results-container"></div>
     </div>
-<script src="./js/index.js"></script>
 <script src="./js/Marquee.js"></script>
+<script src="./js/SearchResult.js"></script>
+<script src="./js/SearchForm.js"></script>
 <script>
     (async function() {
         const marquee = new Marquee(document.getElementById("marquee"));
         marquee.load();
+        const form = new SearchForm(document.getElementById("search-container"));
+        const results = new SearchResult(document.getElementById("search-results-container"));
+        form.onSearch((companies) => {
+            results.renderResults(companies);
+        });
     })()
 </script>
 </body>
