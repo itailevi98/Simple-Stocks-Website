@@ -1,14 +1,10 @@
-body {
-    font-family: 'Lato', sans-serif;
-}
-
 a {
     text-decoration: none;
-    color: rgb(0, 140, 255);
 }
 
-h1 {
-    text-align: center;
+mark {
+    padding: 0;
+    background-color: yellow;
 }
 
 #search-container {
@@ -17,23 +13,15 @@ h1 {
     padding-right: 20px;
 }
 
-#search-results-container {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
+#search-bar {
     width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(104, 103, 109, 0.363);
 }
 
 #results-list {
     list-style-type: none;
     padding: 20px;
-}
-
-.list-item {
-    padding: 10px;
-    border-bottom: 1px solid rgba(180, 178, 178, 0.5);
-    display: flex;
-    align-items: center;
 }
 
 .company-image {
@@ -53,55 +41,18 @@ h1 {
     font-size: 11px;
     color: lightslategrey;
 }
+
 .result-link {
     margin-right: 15px;
 }
 
-.list-item:last-child {
-    border-bottom: 0;
-}
-
-#search-bar {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid rgba(104, 103, 109, 0.363);
-}
-
-#search-button {
-    background: white;
-    color: white;
-    border: 1px solid rgba(104, 103, 109, 0.849);
-    background-color: rgb(35, 128, 214);
-}
-
-#loader {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 8px;
-    border: 8px solid rgb(180, 180, 180);
-    border-radius: 50%;
-    border-top: 8px solid rgba(24, 27, 29, 0.87);
-    width: 20px;
-    height: 20px;
-    animation: spinner 1s linear infinite;
-}
-
-@keyframes spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-} 
-
 #marquee {
-    height: 12px;
+    height: 18px;
+    overflow-x: hidden;
 }
 
 #marquee p {
-    animation: marquee 100s linear infinite;
+    animation: marquee 150s linear infinite;
     white-space: nowrap;
 }
 
@@ -111,6 +62,6 @@ h1 {
     }
     
     100% {
-        transform: translateX(-200%);
+        transform: translateX(-100%);
     }
 }

@@ -7,11 +7,13 @@ class SearchResult {
    init() {
        this.resultsList = document.createElement('ul');
        this.resultsList.id = "results-list";
+       this.resultsList.className = "list-group list-group-flush"
        this.divElement.appendChild(this.resultsList);
    }
 
    async renderResults(companies) {
         if(companies){
+            const searchTerm = document.getElementById("search-bar").value;
             while(this.resultsList.firstChild){
                 this.resultsList.removeChild(this.resultsList.lastChild);
             }
@@ -20,16 +22,16 @@ class SearchResult {
                     const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${company.symbol}`)
                     const companyData = await response.json();
                     const listItem = document.createElement('li');
-                    listItem.className = "list-item";
+                    listItem.className = "list-group-item";
                     const companyImage = document.createElement('img');
                     companyImage.className = "company-image";
                     companyImage.src = companyData.profile.image;
                     const resultLink = document.createElement('a');
                     resultLink.className = "result-link";
                     resultLink.href = `/company.html?symbol=${company.symbol}`;
-                    resultLink.innerText = `${company.name}`;
+                    resultLink.innerHTML = `${company.name}`.replace(new RegExp(searchTerm, "gi"), (match) => `<mark>${match}</mark>`);
                     const companySymbol = document.createElement('span');
-                    companySymbol.innerText = `(${company.symbol})`;
+                    companySymbol.innerHTML = `(${company.symbol})`.replace(new RegExp(searchTerm, "gi"), (match) => `<mark>${match}</mark>`);
                     companySymbol.className = "list-item-price"
                     const changesPrice = document.createElement('span');
                     changesPrice.innerText = companyData.profile.changesPercentage;

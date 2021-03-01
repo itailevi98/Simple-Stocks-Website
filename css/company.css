@@ -1,21 +1,5 @@
-body {
-    font-family: 'Lato', sans-serif;
-}
-
 a {
     text-decoration: none;
-    color: rgb(0, 140, 255);
-}
-
-.company-container {
-    margin: 2em;
-    padding: 2em;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 8px;
-}
-
-h4 {
-    font-weight: 400;
 }
 
 .logo {
@@ -29,26 +13,4 @@ h4 {
 
 #company-name {
     margin-left: 1em;
-}
-
-.loader {
-    display: none;
-    margin-left: auto;
-    margin-right: auto;
-    border: 8px solid rgb(180, 180, 180);
-    border-radius: 50%;
-    border-top: 8px solid rgba(24, 27, 29, 0.87);
-    width: 20px;
-    height: 20px;
-    animation: spinner 1s linear infinite;
-}
-
-@keyframes spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
 }

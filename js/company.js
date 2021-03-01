@@ -1,12 +1,12 @@
 const urlParams = new URLSearchParams(window.location.search);
 const symbol = urlParams.get('symbol');
-document.querySelectorAll(".loader")[0].style.display = "block";
+document.querySelectorAll(".loader")[0].className= "spinner-border d-flex me-auto ms-auto mt-3 loader";
 fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`)
     .then(response => {
         return response.json()
     })
     .then(data => {
-        document.querySelectorAll(".loader")[0].style.display = "none";
+        document.querySelectorAll(".loader")[0].className = "spinner-border d-none me-auto ms-auto mt-3 loader";
         const companyLink = document.createElement("a");
         companyLink.href = data.profile.website;
         companyLink.innerText = data.profile.companyName;
@@ -36,7 +36,7 @@ fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/ap
     });
 
 async function getChart(symbol){
-    document.querySelectorAll(".loader")[1].style.display = "block";
+    document.querySelectorAll(".loader")[1].className= "spinner-border d-flex me-auto ms-auto mt-3 loader";
     const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`);
     const data = await response.json();
     var ctx = document.getElementById('company-chart').getContext('2d');
@@ -90,5 +90,5 @@ async function getChart(symbol){
             
         }
     });
-    document.querySelectorAll(".loader")[1].style.display = "none";
+    document.querySelectorAll(".loader")[1].className = "spinner-border d-none me-auto ms-auto mt-3 loader";
 }
