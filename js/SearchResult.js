@@ -12,11 +12,11 @@ class SearchResult {
    }
 
    async renderResults(companies) {
+        while(this.resultsList.firstChild){
+            this.resultsList.removeChild(this.resultsList.lastChild);
+        }
         if(companies){
             const searchTerm = document.getElementById("search-bar").value;
-            while(this.resultsList.firstChild){
-                this.resultsList.removeChild(this.resultsList.lastChild);
-            }
             if(companies.length !== 0){
                 companies.forEach(async company => {
                     const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${company.symbol}`)

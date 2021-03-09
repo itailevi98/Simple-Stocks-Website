@@ -1,39 +1,39 @@
 const urlParams = new URLSearchParams(window.location.search);
 const symbol = urlParams.get('symbol');
 document.querySelectorAll(".loader")[0].className= "spinner-border d-flex me-auto ms-auto mt-3 loader";
-fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`)
-    .then(response => {
-        return response.json()
-    })
-    .then(data => {
-        document.querySelectorAll(".loader")[0].className = "spinner-border d-none me-auto ms-auto mt-3 loader";
-        const companyLink = document.createElement("a");
-        companyLink.href = data.profile.website;
-        companyLink.innerText = data.profile.companyName;
-        const companyName = document.getElementById("company-name");
-        companyName.appendChild(companyLink);
-        document.getElementById("company-image").src = data.profile.image;
-        document.getElementById("company-description").innerText = data.profile.description;
-        const stockPrice = document.createElement('span');
-        stockPrice.innerText = `Stock Price: ${data.profile.price} `;
-        const pricesChange = document.createElement('span');
-        pricesChange.innerText = data.profile.changesPercentage;
-        try{
-            if(data.profile.changesPercentage.includes('+')){
-                pricesChange.style.color = "rgb(27, 206, 27)";
-            }
-            else if(data.profile.changesPercentage.includes('-')){
-                pricesChange.style.color = "red";
-            }
+fetchCompany(symbol);
+
+async function fetchCompany(symbol){
+    const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`);
+    const data = await response.json();
+    document.querySelectorAll(".loader")[0].className = "spinner-border d-none me-auto ms-auto mt-3 loader";
+    const companyLink = document.createElement("a");
+    companyLink.href = data.profile.website;
+    companyLink.innerText = data.profile.companyName;
+    const companyName = document.getElementById("company-name");
+    companyName.appendChild(companyLink);
+    document.getElementById("company-image").src = data.profile.image;
+    document.getElementById("company-description").innerText = data.profile.description;
+    const stockPrice = document.createElement('span');
+    stockPrice.innerText = `Stock Price: ${data.profile.price} `;
+    const pricesChange = document.createElement('span');
+    pricesChange.innerText = data.profile.changesPercentage;
+    try{
+        if(data.profile.changesPercentage.includes('+')){
+            pricesChange.style.color = "rgb(27, 206, 27)";
         }
-        catch(error){
-            console.log(error);
+        else if(data.profile.changesPercentage.includes('-')){
+            pricesChange.style.color = "red";
         }
-        
-        document.getElementById("stock-price").appendChild(stockPrice);
-        document.getElementById("stock-price").appendChild(pricesChange);
-        getChart(symbol);
-    });
+    }
+    catch(error){
+        console.log(error);
+    }
+    
+    document.getElementById("stock-price").appendChild(stockPrice);
+    document.getElementById("stock-price").appendChild(pricesChange);
+    getChart(symbol);
+}
 
 async function getChart(symbol){
     document.querySelectorAll(".loader")[1].className= "spinner-border d-flex me-auto ms-auto mt-3 loader";

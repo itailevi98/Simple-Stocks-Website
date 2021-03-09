@@ -5,6 +5,7 @@ class SearchForm {
     }
 
     init() {
+        this.debounceTimeout;
         this.searchBar = document.createElement('input');
         this.searchBar.type = "search";
         this.searchBar.id = "search-bar";
@@ -30,14 +31,30 @@ class SearchForm {
     onSearch(searchFunc) {
         this.searchButton.addEventListener("click", async event => {
             this.loader.className= "spinner-border mt-3 d-flex me-auto ms-auto";
-            const searchValue = document.querySelector('#search-bar').value;
-            if(!searchValue){
-                return;
+            let searchValue = document.querySelector('#search-bar').value;
+            if(searchValue === ""){
+                searchValue = null;
             }
             const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${searchValue}&limit=10&exchange=NASDAQ`);
             const companies = await response.json();
             searchFunc(companies);
             this.loader.className = "spinner-border mt-3 d-none";
+        });
+        this.searchBar.addEventListener("keyup", async event => {
+            if(this.debounceTimeout){
+                clearTimeout(this.debounceTimeout);
+            }
+            this.debounceTimeout = setTimeout(async () => {
+                this.loader.className= "spinner-border mt-3 d-flex me-auto ms-auto";
+                let searchValue = document.querySelector('#search-bar').value;
+                if(searchValue === ""){
+                    searchValue = null;
+                }
+                const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${searchValue}&limit=10&exchange=NASDAQ`);
+                const companies = await response.json();
+                searchFunc(companies);
+                this.loader.className = "spinner-border mt-3 d-none";
+            }, 500);
         });
     }
 }
